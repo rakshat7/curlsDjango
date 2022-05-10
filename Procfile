@@ -1,1 +1,1 @@
-web: gunicorn Curl.wsgi:application --log-file - --log-level debug
+web: gunicorn Curl.wsgi
