@@ -1,0 +1,106 @@
+{% extends "curl_admin/base.html" %}
+{% block content %} {{user}} {% endblock  %}
+{% block body %}
+
+{% load crispy_forms_tags %}
+
+<style>
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+</style>
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+       <h6 class="m-0 font-weight-bold d-inline header-text">Add Services</h6><br>
+       <small class="text-secondary">Manage all your customers operations like booking appointments,adding or updating customer details and much more..</small>
+       <a href="/admin/add-service" class="btn btn-primary btn-sm d-inline float-right">Add Services</a>
+    </div>
+    <div class="card-body">
+  
+        <div class="table-responsive">
+
+            <table class="table table-condensed" id="customerTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr class="text-center">
+                        <th> ID</th>
+                        <th> Name </th>
+                        <th> Gender </th>
+                        <th> Price </th>
+                        <th> Edit </th>
+                        <th> Book Appointment </th>
+                    </tr>
+                </thead>
+                <tbody class="table-data">
+                    
+                    {% for service in services %}
+                    {% if service.user_id == user.id %}
+                    <tr class="text-center">
+                        <td> {{forloop.counter}} </td>
+                        <td> {{service.serv_name}}</td>
+                        <td> {{service.gender}} </td>
+                        <td> {{service.serv_price}}  </td>
+                        <td> 
+                            <a href="/admin/update-service/{{service.serv_id}}" class="update-btn btn btn-primary btn-sm">
+                                Edit
+                            </a>
+                        </td>
+                        <td>
+                            <a href="/admin/delete-service/{{service.serv_id}}" class="btn btn-danger btn-sm" >
+                                Delete
+                            </a>
+                        </td> 
+                    </tr>
+                    {% endif %}
+                    {% endfor %}
+                    
+                </tbody>
+                
+            </table>
+        
+        </div>
+    </div>
+</div>
+
+
+
+  <!-- Modal -->
+<div class="modal fade" id="serviceform" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content ">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add Service</h5>
+                <a href="/admin/services" class="close" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </a>
+            </div>
+            <form action="" method="post" >
+            <div class="modal-body">
+                    {% csrf_token %}
+                    {{form|crispy}}
+            </div>
+            <div class="modal-footer">
+                <a href="/admin/services" class="btn btn-secondary">Close</a>
+                <button type="submit" class="btn btn-primary">Add</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% if action == 'update' or action == 'add' %}
+<script>
+  $(function () {
+    $('#serviceform').modal('show');
+  })
+</script>
+{% endif %}
+
+
+
+
+
+{% endblock %}

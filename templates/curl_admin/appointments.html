@@ -1,0 +1,193 @@
+{% extends "curl_admin/base.html" %}
+{% block content %} {{user}} {% endblock  %}
+{% block body %}
+
+{% load crispy_forms_tags %}
+<style>
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    .hidden{
+        display: none;
+    }
+
+</style>
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+       <h6 class="m-0 font-weight-bold d-inline header-text">Manage Appointments</h6><br>
+       <small class="text-secondary">Manage all your customers operations like booking appointments,adding or updating customer details and much more..</small>
+    </div>
+    <div class="card-body">
+  
+        <div class="table-responsive">
+
+            <table class="table table-condensed" id="customerTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr class="text-center">
+                        <th> ID </th>
+                        <th> Customer Name </th>
+                        <th> Service </th>
+                        <th> Staff </th>
+                        <th> Appointment Date </th>
+                        <th> Edit </th>
+                        <th> Checkout </th>
+                    </tr>
+                </thead>
+                <tbody class="table-data">
+                    
+                    {% for appointment in appointments %}
+                    {% if appointment.user_id == user.id %}
+
+
+                    <tr class="text-center">
+                        <td> {{forloop.counter}} </td>
+                        <td>
+                        {% if appointment.customer %}
+                            {{appointment.customer}}
+                        {% endif %}
+
+                        {% if appointment.ucustomer %}
+                            {{appointment.ucustomer}}
+                        {% endif %}
+                        </td>
+                        <td>
+                        {% for service in appointment.services.all %}
+                         {{service.serv_name}}<br>
+                        {% endfor %}
+                        </td>
+                        <td>
+                        {% for staff in appointment.staff.all %}
+                            {{staff.emp_name}}<br>
+                        {% endfor %}
+                        </td>
+                        <td> {{appointment.app_date}} </td>
+                        <td> 
+                            <a href="/admin/update-appointment/{{appointment.app_id}}" class="update-btn btn btn-primary btn-sm">
+                                Edit
+                            </a>
+                        </td>
+                        <td> 
+                            <a href="/admin/cancel-appointment/{{appointment.app_id}}" class="update-btn btn btn-danger btn-sm">
+                                Cancel
+                            </a>
+                        </td>
+                        <td> 
+                            <a href="/admin/checkout/{{appointment.app_id}}" class="update-btn btn btn-success btn-sm">
+                                Checkout
+                            </a>
+                        </td>
+                    </tr>
+                    {% endif %}
+                    {% endfor %}
+                    
+                </tbody>
+                
+            </table>
+        
+        </div>
+    </div>
+</div>
+
+
+
+  <!-- Appointment Form Modal -->
+<div class="modal fade" id="appointmentform" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Book Appointment</h5>
+                <a href="/admin/appointments" class="close" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </a>
+            </div>
+            <form action="" method="post" >
+            <div class="modal-body">
+                    {% csrf_token %}
+                    {{form|crispy}}
+            </div>
+            <div class="modal-footer">
+                <a href="/admin/appointments" class="btn btn-secondary">Close</a>
+                <button type="submit" class="btn btn-primary">Add</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% if action == 'update' or action == 'add' %}
+<script>
+  $(function () {
+    $('#appointmentform').modal('show');
+  })
+</script>
+{% endif %}
+<!-- Modal end  -->
+
+
+<!-- Dynamic Table Test  -->
+<script>
+
+    var tests = []
+
+    function addRow(obj){
+
+        var row = `{% for appointment in appointments %}
+                    {% if appointment.user_id == user.id %}
+
+
+                    <tr class="text-center">
+                        <td> {{forloop.counter}} </td>
+                        <td>
+                        {% if appointment.customer %}
+                            {{appointment.customer}}
+                        {% endif %}
+
+                        {% if appointment.ucustomer %}
+                            {{appointment.ucustomer}}
+                        {% endif %}
+                        </td>
+                        <td>
+                        {% for service in appointment.services.all %}
+                        {{service.serv_name}}<br>
+                        {% endfor %}
+                        </td>
+                        <td>
+                        {% for staff in appointment.staff.all %}
+                            {{staff.emp_name}}<br>
+                        {% endfor %}
+                        </td>
+                        <td> {{appointment.app_date}} </td>
+                        <td> 
+                            <a href="/admin/update-appointment/{{appointment.app_id}}" class="update-btn btn btn-primary btn-sm">
+                                Edit
+                            </a>
+                        </td>
+                        <td> 
+                            <a href="/admin/cancel-appointment/{{appointment.app_id}}" class="update-btn btn btn-danger btn-sm">
+                                Cancel
+                            </a>
+                        </td>
+                        <td> 
+                            <a href="/admin/checkout/{{appointment.app_id}}" class="update-btn btn btn-success btn-sm">
+                                Checkout
+                            </a>
+                        </td>
+                    </tr>
+                    {% endif %}
+                    {% endfor %}`
+    }
+
+
+</script>
+
+<!-- End  -->
+
+
+
+
+
+{% endblock %}

@@ -1,0 +1,157 @@
+{% extends "curl_admin/base.html" %}
+{% block content %} {{user}} {% endblock %}
+{% block body %}
+
+
+{% load crispy_forms_tags %}
+<style>
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+</style>
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold d-inline header-text">Manage Employees</h6><br>
+        <small class="text-secondary">Manage all your customers operations like booking appointments,adding or updating
+            customer details and much more..</small>
+        <a href="/admin/add-dept" class="btn btn-primary btn-sm d-inline float-right mx-2">Add Department</a>
+        <a href="/admin/add-emp" class="btn btn-primary btn-sm d-inline float-right mx-2">Add Employee</a>
+    </div>
+    <div class="card-body">
+
+        <div class="table-responsive">
+
+            <table class="table table-condensed" id="customerTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr class="text-center">
+                        <th> ID</th>
+                        <th> Name </th>
+                        <th> Gender </th>
+                        <th> Contact </th>
+                        <th> Role </th>
+                        <th> DOB </th>
+                        <th> DOJ </th>
+                        <th> Salary </th>
+                        <th> Department </th>
+                        <th> Edit </th>
+                        <th> Delete </th>
+                    </tr>
+                </thead>
+                <tbody class="table-data">
+
+                    {% for employee in employees %}
+                    {% if employee.user_id == user.id %}
+                    <tr class="text-center">
+                        <td>
+                            {% if employee.profile_pic %}
+                            <img class="emp-profile rounded-circle" src="{{employee.profile_pic.url}}">
+                            {% endif %}
+                        </td>     
+                        <td> {{employee.emp_name}}</td>
+                        <td> {{employee.emp_gender}} </td>
+                        <td> {{employee.emp_contact}} </td>
+                        <td> {{employee.role}} </td>
+                        <td> {{employee.emp_dob}} </td>
+                        <td> {{employee.emp_doj}} </td>
+                        <td> {{employee.emp_salary}} </td>
+                        <td> {{employee.dept}} </td>
+                        <td>
+                            <a href="/admin/update-emp/{{employee.emp_id}}" class="update-btn btn btn-primary btn-sm">
+                                Edit
+                            </a>
+                        </td>
+                        <td>
+                            <a href="/admin/delete-emp/{{employee.emp_id}}" class="btn btn-danger btn-sm">
+                                Delete
+                            </a>
+                        </td>
+                    </tr>
+                    {% endif %}
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="employeeform" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content ">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add Employee</h5>
+                <a href="/admin/employees" class="close" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </a>
+            </div>
+            <form action="" method="post" enctype="multipart/form-data">
+                <div class="modal-body">
+                    {% csrf_token %}
+                    {{form|crispy}}
+                </div>
+                <div class="modal-footer">
+                    <a href="/admin/employees" class="btn btn-secondary">Close</a>
+                    <button type="submit" class="btn btn-primary">Add</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- EmpDeptForm  -->
+
+<div class="modal fade" id="EmpDeptForm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content ">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add Department</h5>
+                <a href="/admin/employees" class="close" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </a>
+            </div>
+            <form action="" method="post" enctype="multipart/form-data">
+                <div class="modal-body">
+                    {% csrf_token %}
+                    {{form|crispy}}
+                </div>
+                <div class="modal-footer">
+                    <a href="/admin/employees" class="btn btn-secondary">Close</a>
+                    <button type="submit" class="btn btn-primary">Add</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+{% if action == 'update' or action == 'add' %}
+<script>
+    $(function () {
+        $('#employeeform').modal('show');
+    })
+</script>
+{% endif %}
+
+{% if action == 'deptupdate' or action == 'deptadd' %}
+<script>
+    $(function () {
+        $('#EmpDeptForm').modal('show');
+    })
+</script>
+{% endif %}
+
+
+
+
+
+{% endblock %}

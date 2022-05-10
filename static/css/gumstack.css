@@ -1,0 +1,99 @@
+.nav-wrapper
+{
+    height: 80px;
+    margin: 0 auto;
+}
+
+.nav-item
+{
+    margin: 0 30px;
+}
+
+.bg-gumstack
+{
+    background-color: rgb(82, 143, 236);
+    
+}
+
+h1{
+    font-size: 3.5rem !important;
+}
+
+.text-darkblue
+{
+    color: rgb(65, 89, 139);
+}
+
+.text-voilet
+{
+    color:rgb(82, 143, 236);
+}
+
+.btn-outline-custom
+{
+    background-color: rgb(235, 72, 99) !important;
+}
+
+.nav-link
+{
+    color: white !important;
+}
+
+.list-group-item
+{
+    border: none !important;
+}
+
+.section-2
+{
+    padding: 10% 0;
+}
+
+.section-2 div h6
+{
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.btn-custom-voilet
+{
+    background-color: rgb(118, 109, 245) !important;
+    padding: 12px 5px !important;
+}
+
+.btn-get-started{
+    background-color: rgb(109, 118, 245) !important;
+    padding: 10px 24px !important;
+    font-size: 18px !important;
+}
+
+.centered {
+    position: absolute;
+    width: 80%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.centered h3{
+    color: white;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.centered .btn{
+    font-size: 1rem !important;
+    padding: 10px 25px;
+}
+
+.footer ul a{
+    color: grey;
+    text-decoration: none;
+}
+
+.footer-link a
+{
+    font-size: .95rem;
+    color: rgb(94, 94, 94);
+    text-decoration: none ;
+}

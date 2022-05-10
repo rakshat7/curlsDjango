@@ -1,0 +1,148 @@
+.myalert
+{
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    width: 300px;
+    line-height: 25px;
+    border: 1px rgba(224, 221, 221, 0.808);
+    box-shadow: 0px 2px 1px 1px #dab7b7;
+    color: rgb(90, 88, 86);
+    border-style: solid;
+    border-radius: 20px;
+    position: relative;
+    top: 5%;
+    left: 25%;
+}
+
+:root{
+    --primary-color : #3588c0;
+    --secondary-color : #3588c0;
+    --text : #4d4d4d;
+    --clr-white : #fff;
+    --card : #fff;
+    --page : #fff;
+    --card-header : #fff;
+    --header-text : #3588c0;
+    --cardborder : #fff;
+    --borderbottom : 1px solid #c4c5ca;
+    --table-data : grey;
+}
+
+#content-wrapper
+{
+    background-color: var(--clr-white) !important;
+}
+
+.paginate_button
+{
+    font-size: 14px;
+}
+
+.table-data
+{
+    color: var(--table-data);
+}
+
+.header-text
+{
+    color: var(--header-text);
+}
+
+.card-header
+{
+    background-color: var(--card-header);
+}
+
+.page{
+    background-color: var(--clr-white);
+}
+
+.card{
+    background-color: var(--card);
+    border-color: var(--cardborder);
+}
+
+.card-header{
+    border-bottom: var(--borderbottom) !important;
+}
+
+.text-light{
+    color: var(--text) !important;
+}
+
+.bg-primary-custom{
+    background-color: var(--primary-color) !important;
+}
+
+.bg-secondary-custom{
+    background-color: var(--secondary-color);
+}
+
+.topbar
+{
+    background-color: var(--clr-white);
+}
+
+.dark-mode
+{
+    --primary-color : #09090b;
+    --secondary-color :#050b0f;
+    --text : #00a1e0;
+    --clr-white : #09090b;
+    --card : #121317;
+    --page : rgba(24, 46, 82, 0.849);
+    --card-header : #121317;
+    --header-text : #00a1e0;
+    --cardborder : #242528;
+    --borderbottom : 1px solid #242528;
+    --table-data : rgb(190, 190, 190);
+}
+
+.icons
+{
+    width: 20px;
+   
+}
+
+.brand-icon
+{
+    width: 25px;
+    margin-right: 5px;
+}
+
+.dm-icon
+{
+    width: 18px;
+    cursor: pointer;
+    position: relative;
+    top:30%;
+    margin-left: 5px;
+}
+
+td,th{
+    font-size: 14px;
+}
+
+.form-select{
+    border-radius: 5px;
+    font-size: small;
+    border: 1px solid rgb(201, 199, 199);
+    color: rgb(90, 90, 90);
+}
+
+/* Checkout Page  */
+
+.checkout-list-row
+{
+    table-layout: auto;
+}
+
+.checkout-list tr
+{
+    margin: 15px 100px !important; 
+}
+
+.emp-profile
+{
+    width: 35px;
+    height: 35px;
+}

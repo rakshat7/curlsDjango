@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+
+  {% load static %}
+  {% load crispy_forms_tags %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curls - Salon Locator</title>
+    <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/gumstack.css' %}">
+    <link rel="stylesheet" href="{% static 'vendor/fontawesome-free/css/all.min.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+</head>
+<body>
+
+  <!-- <a href="/home">Home</a>
+    <a href="/dashboard">Dashboard</a>
+    <a href="/cust/signup">Sign-Up</a>
+    <a href="/cust/login">CustomerLogin</a>
+    <a href="/user/signup">Sign-Up</a>
+    <a href="/user/login">Login</a>
+    <a href="/user/logout">Logout</a> -->
+<div class="container-fluid pt-4 bg-gumstack">
+  <div class="container-fluid d-flex justify-content-center p-0" style="height: auto;">
+      <nav class="navbar navbar-expand-lg my-auto" style="width: 85%;">
+          <div class="container-fluid fw-bolder">
+              <a class="navbar-brand" href="#"><img src="{% static 'img/icons/curl2.png' %}" width="85px" alt=""></a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse text-center justify-content-end mt-3" id="navbarNavAltMarkup">
+                  <ul class="navbar-nav ">
+                      <li class="nav-item dropdown">
+                          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Use Cases
+                          </a>
+                          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#">Retail</a></li>
+                            <li><a class="dropdown-item" href="#">E-Commerce</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#">SaaS</a></li>
+                          </ul>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="#">Developers</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="">Curls</a>
+                      </li>
+                      {% if user.is_authenticated %}
+                      <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          {{user.first_name}} {{user.last_name}}
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                          <li>
+                            <a class="dropdown-item" href="/user/profile">
+                              {% for g in user.groups.all %}
+                              {{g.name}}
+                              {% endfor %}
+                            </a>
+                          </li>
+                          <li><hr class="dropdown-divider"></li>
+                          <li><a class="dropdown-item" href="/user/logout">Logout</a></li>
+                        </ul>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="/user-dashboard">Profile</a>
+                      </li>
+                      {% else %}
+                      <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          Sign-In
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                          <li><a class="dropdown-item" href="/user/login">Customer</a></li>
+                          <li><hr class="dropdown-divider"></li>
+                          <li><a class="dropdown-item" href="/business/login">Business</a></li>
+                        </ul>
+                      </li>
+                      {% endif %}
+                      
+                    </ul>
+              </div>
+          </div>
+      </nav>
+  </div>
+</div>
+
+<!-- Banner  -->
+ <div class="container-fluid bg-gumstack py-5">
+  <div class="row content mx-5">
+      <div class="col-md-6 mb-5 text-center">
+        <h1 class="text-white fs-1">The look you want for less.</h1>
+        <h4 class="py-2 text-darkblue fs-sm-6 fs-md-1">Instantly on our website or app</h4>
+        <p class="text-white">Search for your favourite salon on our website and book an appointment <br> in under 5 minutes.<br> Buy original hair and skin products, book appointments online with best offers.</p>
+        <div class="d-md-flex d-block input-group text-center mb-3 pt-5">
+          <input type="text" class="form-control d-sm-none w-100 mb-3 mb-md-0 py-3" placeholder="Salons in..." aria-label="search" aria-describedby="button">
+          <input type="text" class="form-control d-sm-inline d-none py-3" placeholder="Salons in..." aria-label="search" aria-describedby="button">
+          <button class="btn btn-outline-custom text-white fw-bold" type="button" id="button"><i class="fas fa-search-location px-2"></i></button>
+        </div>
+        <small class="text-white float-md-end me-5">no credit card required</small>
+      </div>
+      <!-- Image  -->
+      <div class="col-md-6">
+        <div class="d-flex justify-content-center">
+          <img class="img-fluid" style="width: 75%;" src="https://d33wubrfki0l68.cloudfront.net/b4ad21600801d202593fc44cdc50297edd5269c3/9368a/assets/images/hero_mockup.png" alt="">
+        </div>
+      </div>
+  </div>
+</div>
+
+<section class="container-fluid bg-white py-5">
+  <div class="row text-center my-md-3">
+    <h2 class="text-voilet fs-1 fw-bolder">Seamless one-on-one conversations with<br>your favourite salon in town</h2>
+    <p class="text-secondary px-5">Connect to your <strong>favourite</strong> hairstylist and get best deals</p>
+  </div>
+  <div class="row bg-black justify-content-center text-center">
+    <div class="col-md-6 my-md-3 d-flex justify-content-center">
+      <ul class="list-group fw-bold fs-6">
+        <li class="list-group-item mb-lg-3 mb-4">
+          <img src="img/icons/responsive-design.png" class="me-lg-5 me-3" width="40px" alt="">
+          Works on all devices
+        </li>
+        <li class="list-group-item mb-lg-3 mb-4">
+          <img src="img/icons/click.png" class="me-lg-5 me-3" width="40px" alt="">
+          1-Click video calls directly from browser
+        </li>
+        <li class="list-group-item mb-lg-3 mb-4">
+          <img src="img/icons/application.png" class="me-lg-5 me-3" width="40px" alt="">
+          Optional video for customers
+        </li>
+        <li class="list-group-item mb-lg-3 mb-4">
+          <img src="img/icons/no-smartphones.png" class="me-lg-5 me-3" width="40px" alt="">
+          No app downloads
+        </li>
+        <li class="list-group-item text-center mb-lg-3 mb-4">
+          <a href="/contact-us" class="btn btn-custom-voilet text-white fw-bolder w-50">Get in touch <i class="fas fa-arrow-right px-2"></i></a>
+        </li>
+      </ul>
+    </div>
+    <div class="col-md-6 my-md-3 d-lg-block d-none">
+      <div class="">
+        <img width="85%" src="https://d33wubrfki0l68.cloudfront.net/42bb83032145c3c851edbdd4a33bd08b4a4f1537/494ac/assets/images/seamless/banner.svg" alt="">
+      </div>
+    </div>
+  </div>
+</section>
+<div style="border: 8px solid #F6F6F6;" class="w-75 mx-auto"></div>
+
+<!-- <section class="container-fluid bg-white p-lg-5">
+  <div class="row section-2 text-center">
+    <div class="">
+      <h6 class="text-secondary fs-6">Worried about missing calls from customers?</h6>
+      <h2 class="fw-bolder text-voilet">Book Calls. Unblock Experience.</h2>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-md-6 p-lg-5 mb-5">
+      <div class="mx-auto d-flex justify-content-center">
+        <video width="85%" src="https://d33wubrfki0l68.cloudfront.net/bf278b31b18fa00ac614f9013d43511c16994936/dd5b5/assets/images/flows/scheduling.mp4" autoplay="" loop="" muted=""></video>
+      </div>
+    </div>
+    <div class="col-md-6 text-center p-lg-5">
+      <h5 class="text-voilet fw-bold  mb-lg-4">Capture quality leads even while you're not around</h5>
+      <ul class="list-unstyled">
+        <li class="list-group-item mb-lg-3"><img class="me-2" src="img/icons/right-arrow.png" width="16px" alt=""> Schedule callback appointments during office hours</li>
+        <li class="list-group-item mb-lg-3"><img class="me-2" src="img/icons/right-arrow.png" width="16px" alt="">Sync appointments to your calendar and CRM</li>
+        <li class="list-group-item mb-lg-3"><img class="me-2" src="img/icons/right-arrow.png" width="16px" alt="">Reminders & notifications for callback appointments</li>
+      </ul>
+    </div>
+  </div>
+  <div class="row text-center mb-3">
+    <div class="col-md-6 p-lg-5 mb-5">
+      <h5 class="text-voilet fw-bold  mb-lg-4">Add your team and scale customer conversations</h5>
+      <ul class="list-unstyled">
+        <li class="list-group-item mb-lg-3"><img class="me-2" src="img/icons/right-arrow.png" width="16px" alt="">Show availability across your agents calendars</li>
+        <li class="list-group-item mb-lg-3"><img class="me-2" src="img/icons/right-arrow.png" width="16px" alt="">Route calls to the right team or agent.</li>
+        <li class="list-group-item mb-lg-3"><img class="me-2" src="img/icons/right-arrow.png" width="16px" alt="">Hand off calls to the qualified agent.</li>
+      </ul>
+    </div>
+    <div class="col-md-6 p-lg-5">
+      <div class="mx-auto">
+        <video width="85%" src="https://d33wubrfki0l68.cloudfront.net/5a005283f0208c9dccd235627a9794189b51612f/cc817/assets/images/flows/google-calendar.mp4" autoplay="" loop="" muted=""></video>
+      </div>
+    </div>
+  </div>
+  <div class="row section-2 text-center">
+    <div class="">
+      <a href="/get-started" class="btn btn-get-started text-white fw-bolder">Get started for free <i class="fas fa-arrow-right px-2"></i></a>
+    </div>
+  </div>
+
+  <div class="row  text-center">
+    <div class="col-md-6 p-lg-5 mb-3">
+      <h5 class="fw-bold fs-2 text-dark mb-lg-4 pt-5 px-3 mb-3">Integrate in under 5 minutes</h5>
+      <ul class="list-unstyled " style="font-size: 14px;">
+        <li class="list-group-item mb-lg-3 text-secondary"><img class="me-2" src="img/icons/right-arrow.png" width="16px" alt="">Add just a few lines of script to your website and get going.</li>
+        <li class="list-group-item mb-lg-3 text-secondary"><img class="me-2" src="img/icons/right-arrow.png" width="16px" alt="">No-code installation for Shopify, Wordpress and via Google Tag Manager.</li>
+        <li class="list-group-item mb-lg-3 text-secondary"><img class="me-2" src="img/icons/right-arrow.png" width="16px" alt="">Use our javascript API and integrate video calling from any workflow.</li>
+      </ul>
+    </div>
+    <div class="col-md-6">
+      <div class="d-flex justify-content-center">
+        <img src="https://d33wubrfki0l68.cloudfront.net/657891b529d662aec9a03d4abb7f8aefdcc9a787/8f3a0/assets/images/integration/circle.png" class="d-none d-lg-block" width="368px" height="368px" alt="Integrations">
+      </div>
+    </div>
+  </div>
+</section> -->
+
+<!-- Features  -->
+<section class="section-3 container-fluid bg-white pt-lg-5 ">
+  <div class="row section-3 text-center my-md-3">
+    <h2 class="text-voilet fs-1 fs-lg-2 fw-bolder px-3">Inner Beauty is your job. We do the rest.</h2>
+    <p class="text-secondary">Install Curls from playstore and get best offers on salon services</p>
+  </div>
+
+  <!-- Listed Businesses  -->
+  <div class="row section-3 text-center my-md-2 py-5">
+    {% for b in businesses %}
+    <div class="col-6 col-md-3 mb-4 mb-md-3 px-5">
+      
+      <div class="card" style="width: 18rem;">
+          <img class="card-img-top" src="{{b.profile_img.url}}" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">{{b.b_name}}</h5>
+            <p class="card-text">{{b.b_contact}}</p>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">{{b.b_address}}</li>
+          </ul>
+          <div class="card-body">
+            <a href="/business-detail/{{b.b_id}}" class="btn btn-sm btn-primary">Details</a>
+          </div>
+      </div>
+    
+    </div>
+    {% endfor %}
+    
+    <div class="row section-2 text-center">
+      <div class="">
+        <a href="/get-started" class="btn btn-get-started text-white fw-bolder">Get started for free <i class="fas fa-arrow-right px-2"></i></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="user-review container-fluid g-0 bg-white p-lg-3">
+  <div class="row d-flex text-center my-md-3">
+    <div class="col-12 ">
+      <h2 class="text-dark fs-1 px-5 px-md-0 fw-bolder mb-5">You are in good company</h2>
+      <img class="mb-5" src="https://d33wubrfki0l68.cloudfront.net/7509aa61812f7dcebcc012e78630ba405e9a6bfd/cffe1/assets/images/koskii.png" width="100px" alt="Image not available">
+      
+      <h4 class="mb-2 fw-bold founder-name">Sameen Eajaz</h4>
+      <p class="text-secondary">COO, Co-Founder, Koskii</p>
+      <div class="rating">
+        <span><img src="img/icons/star.png" width="18px" alt=""></span>
+        <span><img src="img/icons/star.png" width="18px" alt=""></span>
+        <span><img src="img/icons/star.png" width="18px" alt=""></span>
+        <span><img src="img/icons/star.png" width="18px" alt=""></span>
+        <span><img src="img/icons/star.png" width="18px" alt=""></span>
+      </div>
+    </div>
+  </div>
+  <div class="row section-3 text-center my-md-5">
+    <p class="text-voilet fs-2 fs-md-1 py-5">“The app is exactly what we were looking for and has helped us add another sales channel very quickly.”</p>
+  </div>
+
+  <div class="container-fluid text-center position-relative">
+    <img src="https://d33wubrfki0l68.cloudfront.net/8383a8029d4e35ecdec71a515a678abeba2ade1f/22b8c/assets/images/person_banner.png" class="w-100 object-fit-cover d-none d-md-block" style="height:332px;" alt="Sorry image is not available">
+    <img src="https://d33wubrfki0l68.cloudfront.net/423c586bf070daa992361ef080c2f72d71212cb2/96e36/assets/images/person_banner_mob.png" class="w-100 object-fit-cover d-block d-md-none" style="height:500px;" alt="Sorry image is not available">
+    <div class="centered">
+      <h3 class="mb-4">Ready to meet your customers face to face?</h3>
+      <div class="">
+        <a href="/get-started" class="btn btn-outline-custom text-white fw-bolder mb-3">Start a free trial <i class="fas fa-arrow-right px-2"></i></a>
+      </div>
+     </div>
+  </div>
+</section>
+
+<!-- Footer  -->
+<footer class="bd-footer p-lg-5 mt-5 bg-light">
+  <div class="container-fluid py-5 px-5">
+    <div class="row footer justify-content-evenly">
+      <div class="col-12 col-md-2 mb-3">
+        <h5 class="fw-bold">Use cases</h5>
+        <ul class="list-unstyled">
+          <li class="mb-2 " ><a href="/">Retail</a></li>
+          <li class="mb-2"><a href="/docs/5.0/">E-Commerce</a></li>
+          <li class="mb-2"><a href="/docs/5.0/examples/">SaaS</a></li>
+        </ul>
+      </div>
+      <div class="col-12 col-md-2 mb-3">
+        <h5 class="fw-bold">Integrations</h5>
+        <ul class="list-unstyled">
+          <li class="mb-2"><a href="/docs/5.0/getting-started/">Shopify</a></li>
+          <li class="mb-2"><a href="/docs/5.0/examples/starter-template/">Google Tag Manager</a></li>
+        </ul>
+      </div>
+      <div class="col-12 col-md-2 mb-3">
+        <h5 class="fw-bold">Compare</h5>
+        <ul class="list-unstyled">
+          <li class="mb-2"><a href="https://github.com/twbs/bootstrap">Vs Whatsapp</a></li>
+          <li class="mb-2"><a href="https://github.com/twbs/bootstrap/tree/v4-dev">Vs Facetime</a></li>
+        </ul>
+      </div>
+      <div class="col-12 col-md-2 mb-3">
+        <h5 class="fw-bold">Support</h5>
+        <ul class="list-unstyled">
+          <li class="mb-2"><a href="https://github.com/twbs/bootstrap/issues">Talk to us on Gumstack</a></li>
+          <li class="mb-2"><a href="https://github.com/twbs/bootstrap/discussions">Chat with us</a></li>
+        </ul>
+      </div>
+      <div class="col-12 col-md-2 mb-3">
+        <h5 class="fw-bold">Resources</h5>
+        <ul class="list-unstyled text-secondary">
+          <li class="mb-2"><a href="https://github.com/twbs/bootstrap/issues">Developer API</a></li>
+          <li class="mb-5"><a href="https://github.com/twbs/bootstrap/discussions">Download Agent Apps</a></li>
+          <li class="mb-4">
+            <a href="https://apps.apple.com/us/app/gumstack-inbox/id1568980478" target="_blank">
+              <img src="https://d33wubrfki0l68.cloudfront.net/3259aa6eea9087281be4fe48eb920924ca503b3b/3c29b/assets/images/app_store.png" width="180px" class="" alt="App store">
+            </a>
+          </li>
+          <li class="mb-2">
+            <a href="https://play.google.com/store/apps/details?id=com.gumstack.app" target="_blank">
+              <img src="https://d33wubrfki0l68.cloudfront.net/920e177c740923e8f2dc05bfef965eaf1a48beea/e6992/assets/images/play_store.png" width="180px"alt="Play store">
+            </a>
+          </li>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-link container-fluid mb-2">
+    <div class="row">
+      <div class="col-md-2 mb-3">
+        <a href=""><img src="https://d33wubrfki0l68.cloudfront.net/f9dfdd0835abaaf38f4050abc74099a6f05abc8f/aae41/assets/images/social/linkedin.svg" alt="Image not available"></a>
+        <a href=""><img src="https://d33wubrfki0l68.cloudfront.net/c46763f75ccbb49fe96272ee14a4ae5050b0a271/c405a/assets/images/social/twitter.svg" alt="Image not available"></a>
+      </div>
+      <div class="col-md-6  mb-3">
+        <a href="">© Copyright Curls Inc. 2021- All rights reserved</a>
+      </div>
+      <div class="col-md-2  mb-3">
+        <a href="">Terms & Conditions</a>
+      </div>
+      <div class="col-md-2  mb-3">
+        <a href="">Privacy Policy</a>
+      </div>
+    </div>
+  </div>
+</footer>
+</body>
+
+
+
+</html>

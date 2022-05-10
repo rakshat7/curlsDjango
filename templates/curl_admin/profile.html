@@ -1,0 +1,62 @@
+{% extends "curl_admin/base.html" %}
+{% block content %} {{user}} {% endblock  %}
+{% block body %}
+
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+       <h6 class="m-0 font-weight-bold d-inline header-text">{{user.first_name}}'s Profile</h6><br>
+       <small class="text-secondary">Perform Profile related operations</small>
+    </div>
+    <div class="card-body bg-info">
+        <div class="bg-gradient-danger"> 
+            <img src="{{user.profile.image.url}}" width="80px" alt="">
+            <label for="" class=""> {{user.first_name}} {{user.last_name}}</label>
+        </div>
+        
+
+    </div>
+</div>
+
+<style>
+.helptext
+{
+    display: none !important;
+}
+</style>
+
+<!-- Modal  -->
+
+<div class="modal fade" id="userform" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content ">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Update Details</h5>
+                <a href="/user/profile" class="close" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </a>
+            </div>
+            <form action="" method="post" >
+            <div class="modal-body">
+                    {% csrf_token %}
+                    {{form}}
+            </div>
+            <div class="modal-footer">
+                <a href="/user/profile" class="btn btn-secondary">Close</a>
+                <button type="submit" class="btn btn-primary">Update</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% if action == 'update'%}
+<script>
+  $(function () {
+    $('#userform').modal('show');
+  })
+</script>
+{% endif %}
+
+
+{% endblock %}

@@ -1,0 +1,36 @@
+<!DOCTYPE html>{% extends 'curl_admin/base.html' %}
+
+{% block title %}
+Confimation
+{% endblock title %}
+
+{% block body %}
+{% load static %}
+<!-- -->
+
+<div id="confirmModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confimation</h5>
+                <a href="/admin/business" type="button" class="close" data-dismiss="modal">&times;</a>
+            </div>
+            <div class="modal-body">
+                <p>Are Sure you want to delete {{object}} ?</p>
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <input class="btn btn-danger" type="submit" value="Yes">
+                    <a class="btn btn-primary" href="/admin/business">Back</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#confirmModal").modal('show');
+    });
+</script>
+{% endblock body %}
