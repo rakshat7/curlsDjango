@@ -1,1 +1,1 @@
-web: gunicorn main:Curl.wsgi
+web: gunicorn Curl.wsgi
