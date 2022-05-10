@@ -13,7 +13,7 @@ class UserAppointmentForm(forms.ModelForm):
     #     self.fields['services'].label = "Services"
     #     self.fields['app_date'].label = "Appointment Date"
     #     self.fields['staff'].label = "Staff"
-    #     self.fields['ucustomer'].label = "UCustomer"
+        # self.fields['ucustomer'].label = "UCustomer"
         
         
     def __init__(self,*args, **kwargs):
@@ -29,7 +29,9 @@ class UserAppointmentForm(forms.ModelForm):
         self.fields['services'].queryset = Services.objects.filter(user_id=self.user_id)
         self.fields['staff'].queryset = Employee.objects.filter(user_id=self.user_id)
         self.fields['user'].queryset = MyUser.objects.filter(id=self.user_id)
-        
+        self.fields['app_date'].label = "Appointment Date"
+        self.fields['ucustomer'].label = "Customer Name"
+        self.fields['user'].label = "Business Owner"
         
     class Meta:
         
